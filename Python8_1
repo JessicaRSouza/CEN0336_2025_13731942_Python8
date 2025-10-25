@@ -1,0 +1,9 @@
+#!usr/bin/env python3
+
+#Solicitando o nome do arquivo ao usuário
+arquivo = input("Digite o nome do arquivo FASTA: ")
+
+#Criando o dicionário principal (vazio por agora)
+seqs = {}
+
+
