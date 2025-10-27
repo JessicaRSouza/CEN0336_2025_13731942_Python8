@@ -94,47 +94,57 @@ with open(arquivo, "rt") as fasta, open("Python_08.codons-6frames.nt", "w") as a
 					if len(codon) == 3:  #Garante que o códon esteja completo (ignora "restos" no final da sequência)
 						codons.append(codon)  #Adiciona o códon completo à lista
 
+						#Traduzindo o códon para aminoácido
 						aa = tabela_de_traducao.get(codon, "X")
-						aminoacidos.append(aa)
+						aminoacidos.append(aa)  #Adiciona o aminoácido à lista
 
 				#Juntando todos os códons da lista, separados por um espaço
 				linha_codons_formatada = " ".join(codons)
 
-				#Escrevendo a linha de códons formatada no arquivo e adicionando uma linha em branco para separar as entradas no arquivo de saída
+				#Escrevendo a linha de códons formatada no arquivo 1 e adicionando uma linha em branco para separar as entradas no arquivo de saída
 				arquivo_saida.write(f"{linha_codons_formatada}\n")
 				arquivo_saida.write("\n")
 
 				#Juntando todos os aminoácidos da lista
 				linha_aa_formatada = "".join(aminoacidos)
 
-				#Escrevendo a linha de códons formatada no arquivo e adicionando uma linha em branco para separar as entradas no arquivo de saída
+				#Escrevendo a linha de aminoácidos formatada no arquivo 2 e adicionando uma linha em branco para separar as entradas no arquivo de saída
 				arquivo_aa.write(f"{linha_aa_formatada}\n")
 				arquivo_aa.write("\n")
 
-				#Procurando por todas as metioninas ("M")
+				#Procurando por todas as metioninas ("M"), que são os inícios de peptídeos
 				for match in re.finditer("M", linha_aa_formatada):
+
 					m_index = match.start()  #Determina o índice onde o "M" está
 					sub_seq_comeco = linha_aa_formatada[m_index:]  #Fatia da string que começa a partir desse "M"
 					sub_seq_fim = sub_seq_comeco.find("*")  #Procura o primeiro stop codon ("*") dentro dessa fatia
 
+					#Criando variáveis temporárias para o peptídeo e códons atuais
 					pept_atual = ""
 					codons_atuais = []
 
 					if sub_seq_fim == -1:
-						pept_atual = sub_seq_comeco
-						codons_atuais = codons[m_index:]
+						#Determina o que fazer quando não encontra stop codon
+						pept_atual = sub_seq_comeco  #O peptídeo segue até o fim da sequência
+						codons_atuais = codons[m_index:]  #Pega os códons correspondentes (do "M" até o fim)
+
 					else:
-						pept_atual = sub_seq_comeco[:sub_seq_fim]
-						fim_index = m_index + sub_seq_fim
-						codons_atuais = codons[m_index:fim_index]
+						#Determina o que fazer quando o stop codon é encontrado
+						pept_atual = sub_seq_comeco[:sub_seq_fim]  #O peptídeo vai do "M" até o stop codon
+						fim_index = m_index + sub_seq_fim  #Calcula o índice final para fatiar a lista de códons
+						codons_atuais = codons[m_index:fim_index]  #Pega os códons correspondentes (do "M" até o stop codon)
 
+					#Verificando se o peptídeo atual é o mais longo
 					if len(pept_atual) > len(pept_mais_longo):
-						pept_mais_longo = pept_atual
-						codons_pept_mais_longo = "".join(codons_atuais)
+						pept_mais_longo = pept_atual  #Caso seja, ele é definido como o novo peptídeo mais longo
+						codons_pept_mais_longo = "".join(codons_atuais)  #Define os códons do peptídeo mais longo
 
+		#Após checar os 6 quadros, escreve os maiores nos arquivos 3 e 4
+
+		#Escrevendo o peptídeo mais longo no arquivo 3
 		arq_pept_longo.write(f">{identificador}-longest-peptide-M-to-Stop\n")
 		arq_pept_longo.write(f"{pept_mais_longo}\n\n")
-
+		#Escrevendo os códons do peptídeo mais longo no arquivo 4
 		arq_orf.write(f">{identificador}-longest-orf-nucleotides\n")
 		arq_orf.write(f"{codons_pept_mais_longo}\n\n")
 
