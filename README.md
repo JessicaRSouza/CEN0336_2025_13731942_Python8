@@ -13,28 +13,21 @@ Repositório criado com o objetivo de carregar as respostas do relatório da aul
 
 - **Questão 1:** (Composição de nucleotídeos)
     - Script: [Python08_1.py](Python08_1.py)
-    - *(Nota: A saída desta questão é impressa no console, não em um arquivo.)*
 
-- **Questão 2:** (Códons, quadro de leitura 1)
+- **Questão 2:** 
     - Script: [Python08_2.py](Python08_2.py)
-    - Resultado: [Python_08.codons-frame-1.nt](Python_08.codons-frame-1.nt)
 
-- **Questão 3:** (Códons, 3 quadros de leitura)
+- **Questão 3:** 
     - Script: [Python08_3.py](Python08_3.py)
-    - Resultado: [Python_08.codons-3frames.nt](Python_08.codons-3frames.nt)
 
-- **Questão 4:** (Códons, 6 quadros de leitura, incl. complemento reverso)
+- **Questão 4:**
     - Script: [Python08_4.py](Python08_4.py)
-    - Resultado: [Python_08.codons-6frames.nt](Python_08.codons-6frames.nt)
 
-- **Questão 5:** (Tradução dos 6 quadros de leitura)
+- **Questão 5:**
     - Script: [Python08_5.py](Python08_5.py)
-    - Resultado: [Python_08.translated.aa](Python_08.translated.aa)
 
-- **Questão 6:** (Peptídeo mais longo)
+- **Questão 6:**
     - Script: [Python08_6.py](Python08_6.py)
-    - Resultado: [Python_08.translated-longest.aa](Python_08.translated-longest.aa)
 
-- **Questão 7:** (ORF do peptídeo mais longo)
+- **Questão 7:**
     - Script: [Python08_7.py](Python08_7.py)
-    - Resultado: [Python_08.orf-longest.nt](Python_08.orf-longest.nt)
